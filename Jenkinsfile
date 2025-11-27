@@ -2,15 +2,21 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/khushi2204/hyperserve-demo.git'
             }
         }
 
         stage('Run Script') {
             steps {
-                bat '"C:\\Program Files\\Git\\bin\\bash.exe" -lc "./print_status.sh"'
+                sh '''
+                    echo "Running script inside Linux Jenkins"
+                    chmod +x print_status.sh
+                    ./print_status.sh
+                '''
             }
         }
     }
